@@ -1,9 +1,8 @@
 import requests 
-import os
+from os import getenv
 
-
-ITEM_ENDPOINT = os.getenv("ITEM_ENDPOINT")
-PRICE_ENDPOINT = os.getenv("PRICE_ENDPOINT")
+ITEM_ENDPOINT = getenv("ITEM_ENDPOINT")
+PRICE_ENDPOINT = getenv("PRICE_ENDPOINT")
 
 headers = {
     "User-Agent": "fossil-island-dataworks"
