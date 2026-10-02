@@ -11,7 +11,6 @@ services:
     environment:
       AWS_ACCESS_KEY_ID: dummy
       AWS_SECRET_ACCESS_KEY: dummy
-      S3_BUCKET: dummy
-
+      S3_BUCKET: osrs-data
 volumes:
   weed-data:
