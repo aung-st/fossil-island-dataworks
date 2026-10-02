@@ -1,0 +1,17 @@
+services:
+  seaweedfs:
+    image: chrislusf/seaweedfs
+    ports:
+      - "8333:8333"
+      - "9333:9333"
+      - "8888:8888"
+      - "23646:23646"
+    volumes:
+      - weed-data:/data
+    environment:
+      AWS_ACCESS_KEY_ID: dummy
+      AWS_SECRET_ACCESS_KEY: dummy
+      S3_BUCKET: dummy
+
+volumes:
+  weed-data:

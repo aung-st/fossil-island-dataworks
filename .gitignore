@@ -1,0 +1,4 @@
+__pycache__/
+dataworks_venv/
+.env
+.pytest_cache/
