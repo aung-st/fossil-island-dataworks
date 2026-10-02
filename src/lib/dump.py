@@ -1,7 +1,10 @@
-from ingestion import ingest_item_mapping,ingest_latest_prices
+from src.ingestion import ingest_item_mapping,ingest_latest_prices
+from seaweedfs import seaweedfs_storage
 import json 
 
 dump_filepath = "data/"
+
+seaweed = seaweedfs_storage()
 
 def dump_mappings():
     data = ingest_item_mapping()
