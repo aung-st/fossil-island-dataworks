@@ -1,21 +1,24 @@
-import json
+from json import dumps 
 
-from seaweedfs import seaweedfs_storage
+from src.storage.seaweedfs import seaweedfs_storage
 
-from src.ingestion import ingest_item_mapping
+from src.ingestion import ingest_item_mapping, ingest_latest_prices
 
-dump_filepath = "data/"
+from time import time
 
 seaweed = seaweedfs_storage()
-
+unix_timestamp = int(time())
+mapping_filename = "item_mapping_data.json"
+prices_filename = "prices_data.json"
 
 def dump_mappings():
-    data = ingest_item_mapping()
-    with open(f"{dump_filepath}item_mapping_data.json", "w") as item_mapping_data:
-        json.dump(data, item_mapping_data)
+    data = dumps(ingest_item_mapping())
 
+    seaweed.store_data(key=f"mappings/{unix_timestamp}_{mapping_filename}",data = data)
 
 def dump_prices():
-    data = ingest_item_mapping()
-    with open(f"{dump_filepath}prices_data.json", "w") as prices_data:
-        json.dump(data, prices_data)
+    data = dumps(ingest_latest_prices())
+    seaweed.store_data(key=f"prices/{unix_timestamp}_{prices_filename}",data = data)
+
+dump_mappings()
+dump_prices()
