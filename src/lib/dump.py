@@ -19,7 +19,3 @@ def dump_mappings() -> None:
 def dump_prices() -> None:
     data = dumps(ingest_latest_prices())
     seaweed.store_data(key=f"prices/{unix_timestamp}_{prices_filename}", data=data)
-
-
-dump_mappings()
-dump_prices()
