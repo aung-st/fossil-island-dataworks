@@ -1,7 +1,8 @@
 from os import getenv
 
 import boto3
-from interface import storage_interface
+
+from src.storage.interface import storage_interface
 
 
 class seaweedfs_storage(storage_interface):
@@ -23,7 +24,7 @@ class seaweedfs_storage(storage_interface):
 
     def get_data(self, key: str) -> dict:
 
-        # We will realistically only take the latest snapshot for transforming via the dump script
+        # We will realistically only take the latest snapshot for transforming via a helper
         # objects_list = self.list_stored_data(prefix)
         # key = objects_list["Contents"][0]["Key"]
 
