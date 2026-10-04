@@ -1,6 +1,7 @@
 services:
   seaweedfs:
     image: chrislusf/seaweedfs
+    container_name: osrs-seaweed
     ports:
       - "8333:8333"
       - "9333:9333"
@@ -9,8 +10,8 @@ services:
     volumes:
       - weed-data:/data
     environment:
-      AWS_ACCESS_KEY_ID: dummy
-      AWS_SECRET_ACCESS_KEY: dummy
-      S3_BUCKET: osrs-data
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_BUCKET: ${S3_BUCKET}
 volumes:
   weed-data:
