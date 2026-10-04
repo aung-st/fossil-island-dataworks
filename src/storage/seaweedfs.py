@@ -24,10 +24,6 @@ class seaweedfs_storage(storage_interface):
 
     def get_data(self, key: str) -> dict:
 
-        # We will realistically only take the latest snapshot for transforming via a helper
-        # objects_list = self.list_stored_data(prefix)
-        # key = objects_list["Contents"][0]["Key"]
-
         return self.s3.get_object(Bucket=self.bucket, Key=key)
 
     def list_stored_data(self, prefix: str) -> dict:
