@@ -10,13 +10,14 @@ class seaweedfs_storage(storage_interface):
         endpoint_url = getenv("ENDPOINT_URL")
         aws_access_key_id = getenv("AWS_ACCESS_KEY_ID")
         aws_secret_access_key = getenv("AWS_SECRET_ACCESS_KEY")
+        s3_bucket = getenv("S3_BUCKET")
         self.s3 = boto3.client(
             service_name="s3",
             endpoint_url=endpoint_url,
             aws_access_key_id=aws_access_key_id,
             aws_secret_access_key=aws_secret_access_key,
         )
-        self.bucket = "osrs-data"
+        self.bucket = s3_bucket
 
     # Technically a list or a dict for data but the json util will stringify it
     def store_data(self, key: str, data: str) -> None:
