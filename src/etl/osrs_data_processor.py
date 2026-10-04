@@ -7,7 +7,7 @@ class osrs_data_processor:
     def __init__(self):
         self.seaweed = seaweedfs_storage()
 
-    def get_key(self, prefix):
+    def get_key(self, prefix: str) -> str:
 
         # We take the latest snapshot for transforming
 
@@ -16,20 +16,20 @@ class osrs_data_processor:
 
         return file_key
 
-    def get_file(self, key):
+    def get_file(self, key: str) -> list | dict:
 
         data = self.seaweed.get_data(key)
         data = data["Body"].read()
         data = loads(data.decode("utf-8"))
         return data
 
-    def normalise_prices(self, key):
+    def normalise_prices(self, key: str) -> list:
 
         data = self.get_file(key)["data"]
 
         return list(data.items())
 
-    def transform_normalised_prices(self, normalised_prices):
+    def transform_normalised_prices(self, normalised_prices: list) -> list:
 
         transformed_prices = []
 
