@@ -17,3 +17,7 @@ if __name__ == "__main__":
 
     prices = osrs_data.transform_normalised_prices(normalised_prices)
     mappings = osrs_data.get_file(mappings_key)
+
+    joined_data = osrs_data.join_data(mappings, prices)
+
+    print(joined_data[0])

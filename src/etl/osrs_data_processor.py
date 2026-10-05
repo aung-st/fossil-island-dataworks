@@ -45,3 +45,21 @@ class osrs_data_processor:
             )
 
         return transformed_prices
+
+    def get_valid_tradeable_items(self, mappings, prices):
+        price_ids = {item["id"] for item in prices}
+        mapping_ids = {item["id"] for item in mappings}
+        return price_ids & mapping_ids
+
+    def join_data(self, mappings, prices):
+        joined_data = []
+
+        valid_mappings = self.get_valid_tradeable_items(mappings, prices)
+
+        mapping_by_id = {row["id"]: row for row in mappings}
+        price_by_id = {row["id"]: row for row in prices}
+
+        for id in valid_mappings:
+            joined_data.append({**mapping_by_id[id], **price_by_id[id]})
+
+        return joined_data
