@@ -1,7 +1,10 @@
+import logging
 from json import loads
 
 from src.storage.seaweedfs import seaweedfs_storage
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 class osrs_data_processor:
     def __init__(self):
@@ -11,6 +14,7 @@ class osrs_data_processor:
 
         # We take the latest snapshot for transforming
 
+        logger.info("Checking for latest snapshot from {prefix}")
         file_list = self.seaweed.list_stored_data(prefix)
         file_key = file_list["Contents"][0]["Key"]
 
@@ -18,6 +22,7 @@ class osrs_data_processor:
 
     def get_file(self, key: str) -> list | dict:
 
+        logger.info("Grabbing file {key}")
         data = self.seaweed.get_data(key)
         data = data["Body"].read()
         data = loads(data.decode("utf-8"))
@@ -25,6 +30,7 @@ class osrs_data_processor:
 
     def normalise_prices(self, key: str) -> list:
 
+        logger.info("Reshaping prices into a list")
         data = self.get_file(key)["data"]
 
         return list(data.items())
@@ -33,6 +39,7 @@ class osrs_data_processor:
 
         transformed_prices = []
 
+        logger.info("Transforming normalised prices to match shape of mappings")
         for item in normalised_prices:
             transformed_prices.append(
                 {
@@ -47,6 +54,8 @@ class osrs_data_processor:
         return transformed_prices
 
     def get_valid_tradeable_items(self, mappings: list, normalised_prices: list) -> set:
+
+        logger.info("Fetching all ids for tradeable items that exist in the mappings")
         price_ids = {item["id"] for item in normalised_prices}
         mapping_ids = {item["id"] for item in mappings}
         return price_ids & mapping_ids
@@ -56,6 +65,7 @@ class osrs_data_processor:
 
         valid_mappings = self.get_valid_tradeable_items(mappings, normalised_prices)
 
+        logger.info("Inner joining mappings and normalised prices")
         mapping_by_id = {row["id"]: row for row in mappings}
         price_by_id = {row["id"]: row for row in normalised_prices}
 

@@ -1,12 +1,16 @@
+import logging
 from os import getenv
 
 import psycopg2
 
 from src.warehouse.interface import warehouse_interface
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 class postgres_warehouse(warehouse_interface):
     def __init__(self):
+        
         self.POSTGRES_PASSWORD = getenv("POSTGRES_PASSWORD")
         self.POSTGRES_DB = getenv("POSTGRES_DB")
         self.POSTGRES_USER = getenv("POSTGRES_USER")
@@ -39,6 +43,7 @@ class postgres_warehouse(warehouse_interface):
         );
         """
 
+        logger.info("Creating the latest trades table if it does not already exist")
         with self.connection.cursor() as cursor:
             cursor.execute(create_latest_table_query)
             self.connection.commit()
@@ -63,6 +68,8 @@ class postgres_warehouse(warehouse_interface):
             low = EXCLUDED.low,
             lowtime = EXCLUDED.lowtime;
         """
+
+        logger.debug(f"Storing joined data row with id {data["id"]} into latest items table")
 
         with self.connection.cursor() as cursor:
             cursor.execute(
@@ -89,6 +96,8 @@ class postgres_warehouse(warehouse_interface):
     def get_data(self, id: int) -> tuple:
         get_data_row_query = "SELECT * FROM latest_trades where id = %s"
 
+        logger.info(f"Getting data row with id {id}")
+
         with self.connection.cursor() as cursor:
             cursor.execute(get_data_row_query, (id,))
             row = cursor.fetchone()
@@ -98,6 +107,7 @@ class postgres_warehouse(warehouse_interface):
     def get_all_data(self) -> list[tuple]:
         get_all_data_rows_query = "SELECT * FROM latest_trades"
 
+        logger.info("Getting all rows from latest trades table")
         with self.connection.cursor() as cursor:
             cursor.execute(get_all_data_rows_query)
             row = cursor.fetchall()
@@ -123,6 +133,7 @@ class postgres_warehouse(warehouse_interface):
             WHERE id = %s;
         """
 
+        logger.info("Updating item id {id}")
         with self.connection.cursor() as cursor:
             cursor.execute(
                 update_data_query,
@@ -150,5 +161,6 @@ class postgres_warehouse(warehouse_interface):
         DROP TABLE latest_trades
         """
 
+        logger.info("Deleting latest tables")
         with self.connection.cursor() as cursor:
             cursor.execute(delete_data_query, (id,))
