@@ -1,6 +1,6 @@
 COMPOSE_FILE := docker/docker-compose.yml
 
-.PHONY: start stop format lint source
+.PHONY: start stop format lint source test
 
 start:
 	docker compose -f $(COMPOSE_FILE) up -d
@@ -21,3 +21,6 @@ fix:
 
 source:
 	. ./.env && . ./dataworks_venv/bin/activate && bash
+
+test:
+	python -m pytest --cov=src

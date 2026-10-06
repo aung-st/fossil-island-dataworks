@@ -4,3 +4,4 @@ boto3==1.43.107
 ruff==0.16.10
 pytest-mock==3.16.0
 psycopg2-binary==2.9.13
+pytest-cov==7.1.0
