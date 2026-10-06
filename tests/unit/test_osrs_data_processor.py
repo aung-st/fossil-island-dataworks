@@ -8,6 +8,7 @@ def processor():
     return osrs_data_processor()
 
 
+@pytest.mark.unit
 def test_get_key(processor, mocker):
 
     mock_list = mocker.patch.object(
@@ -23,6 +24,7 @@ def test_get_key(processor, mocker):
     mock_list.assert_called_once_with("prices/")
 
 
+@pytest.mark.unit
 def test_get_prices_file(processor, mocker):
 
     mocker.patch.object(
@@ -42,6 +44,7 @@ def test_get_prices_file(processor, mocker):
     assert file == {"data": [{"id": 2, "name": "Steel cannonball"}]}
 
 
+@pytest.mark.unit
 def test_normalise_prices(processor, mocker):
 
     mocker.patch.object(
@@ -74,6 +77,7 @@ def test_normalise_prices(processor, mocker):
     assert normalised_data == expected_shape
 
 
+@pytest.mark.unit
 def test_transform_normalised_prices(processor):
 
     mock_normalised_prices = [
@@ -104,6 +108,7 @@ def test_transform_normalised_prices(processor):
     assert transformed_prices == expected_shape
 
 
+@pytest.mark.unit
 def test_get_valid_tradeable_items(processor):
 
     mock_mapping = [
@@ -147,6 +152,7 @@ def test_get_valid_tradeable_items(processor):
     assert valid_items == {2}
 
 
+@pytest.mark.unit
 def test_joined_data(processor):
 
     mock_mapping = [

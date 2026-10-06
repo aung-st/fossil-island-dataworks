@@ -13,6 +13,7 @@ def mock_seaweed(mocker):
     return mocker.Mock()
 
 
+@pytest.mark.unit
 def test_list_stored_data_mappings_path_is_correct(seaweed, mock_seaweed):
     seaweed.s3 = mock_seaweed
 
@@ -25,6 +26,7 @@ def test_list_stored_data_mappings_path_is_correct(seaweed, mock_seaweed):
     )
 
 
+@pytest.mark.unit
 def test_list_stored_data_prices_path_is_correct(seaweed, mock_seaweed):
     seaweed.s3 = mock_seaweed
 
@@ -37,6 +39,7 @@ def test_list_stored_data_prices_path_is_correct(seaweed, mock_seaweed):
     )
 
 
+@pytest.mark.unit
 def test_mappings_insertion_path_is_correct(seaweed, mock_seaweed):
     seaweed.s3 = mock_seaweed
 
@@ -47,6 +50,7 @@ def test_mappings_insertion_path_is_correct(seaweed, mock_seaweed):
     )
 
 
+@pytest.mark.unit
 def test_prices_insertion_path_is_correct(seaweed, mock_seaweed):
     seaweed.s3 = mock_seaweed
 
@@ -57,6 +61,7 @@ def test_prices_insertion_path_is_correct(seaweed, mock_seaweed):
     )
 
 
+@pytest.mark.unit
 def test_list_stored_data_sorts_by_time_descending(seaweed, mock_seaweed):
     seaweed.s3 = mock_seaweed
 
@@ -84,6 +89,7 @@ def test_list_stored_data_sorts_by_time_descending(seaweed, mock_seaweed):
     )
 
 
+@pytest.mark.unit
 def test_get_data_grabs_specified_filepath(seaweed, mock_seaweed):
     seaweed.s3 = mock_seaweed
 

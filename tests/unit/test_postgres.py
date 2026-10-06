@@ -13,6 +13,7 @@ def mock_postgres(mocker):
     return mocker.MagicMock()
 
 
+@pytest.mark.unit
 def test_table_created_if_not_exists(postgres, mock_postgres):
     postgres.connection = mock_postgres
 
@@ -29,6 +30,7 @@ def test_table_created_if_not_exists(postgres, mock_postgres):
     mock_postgres.commit.assert_called_once()
 
 
+@pytest.mark.unit
 def test_table_row_data_fetched(postgres, mock_postgres):
     postgres.connection = mock_postgres
 
@@ -45,6 +47,7 @@ def test_table_row_data_fetched(postgres, mock_postgres):
     assert "SELECT * FROM latest_trades where id = %s" in query
 
 
+@pytest.mark.unit
 def test_all_table_data_fetched(postgres, mock_postgres):
     postgres.connection = mock_postgres
 
@@ -59,6 +62,7 @@ def test_all_table_data_fetched(postgres, mock_postgres):
     assert "SELECT * FROM latest_trades" in query
 
 
+@pytest.mark.unit
 def test_table_deletion(postgres, mock_postgres):
     postgres.connection = mock_postgres
 
@@ -73,6 +77,7 @@ def test_table_deletion(postgres, mock_postgres):
     assert "DROP TABLE latest_trades" in query
 
 
+@pytest.mark.unit
 def test_table_update(postgres, mock_postgres):
     postgres.connection = mock_postgres
 
@@ -122,6 +127,7 @@ def test_table_update(postgres, mock_postgres):
     mock_postgres.commit.assert_called_once()
 
 
+@pytest.mark.unit
 def test_table_insertion(postgres, mock_postgres):
     postgres.connection = mock_postgres
 

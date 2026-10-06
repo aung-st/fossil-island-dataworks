@@ -1,6 +1,6 @@
 COMPOSE_FILE := docker/docker-compose.yml
 
-.PHONY: start stop format lint source test run
+.PHONY: start stop format lint source test test-unit test-integration test-smoke run
 
 start:
 	docker compose -f $(COMPOSE_FILE) up -d
@@ -24,6 +24,15 @@ source:
 
 test:
 	python -m pytest --cov=src
+
+test-unit:
+	python -m pytest -m unit
+
+test-integration:
+	python -m pytest -m integration
+
+test-smoke:
+	python -m pytest -m smoke
 
 run:
 	python -m src.main
