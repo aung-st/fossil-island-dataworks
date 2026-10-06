@@ -6,6 +6,7 @@ from src.storage.seaweedfs import seaweedfs_storage
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+
 class osrs_data_processor:
     def __init__(self):
         self.seaweed = seaweedfs_storage()

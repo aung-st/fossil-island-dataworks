@@ -8,9 +8,10 @@ from src.warehouse.interface import warehouse_interface
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+
 class postgres_warehouse(warehouse_interface):
     def __init__(self):
-        
+
         self.POSTGRES_PASSWORD = getenv("POSTGRES_PASSWORD")
         self.POSTGRES_DB = getenv("POSTGRES_DB")
         self.POSTGRES_USER = getenv("POSTGRES_USER")
@@ -69,7 +70,9 @@ class postgres_warehouse(warehouse_interface):
             lowtime = EXCLUDED.lowtime;
         """
 
-        logger.debug(f"Storing joined data row with id {data["id"]} into latest items table")
+        logger.debug(
+            f"Storing joined data row with id {data['id']} into latest items table"
+        )
 
         with self.connection.cursor() as cursor:
             cursor.execute(
