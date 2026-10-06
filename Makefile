@@ -1,6 +1,6 @@
 COMPOSE_FILE := docker/docker-compose.yml
 
-.PHONY: start stop format lint
+.PHONY: start stop format lint source
 
 start:
 	docker compose -f $(COMPOSE_FILE) up -d
@@ -17,4 +17,7 @@ lint:
 fix: 
 	ruff format . 
 	ruff check . --fix
-	
+
+
+source:
+	. ./.env && . ./dataworks_venv/bin/activate && bash
