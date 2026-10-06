@@ -1,4 +1,3 @@
-
 import pytest
 
 from src.warehouse.postgres import postgres_warehouse
