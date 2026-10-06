@@ -61,7 +61,7 @@ class postgres_warehouse(warehouse_interface):
             high = EXCLUDED.high,
             hightime = EXCLUDED.hightime,
             low = EXCLUDED.low,
-            lowtime = EXCLUDED.lowtime;        
+            lowtime = EXCLUDED.lowtime;
         """
 
         with self.connection.cursor() as cursor:
@@ -110,7 +110,7 @@ class postgres_warehouse(warehouse_interface):
             SET
                 examine = %s,
                 members = %s,
-                low_alch = %s,
+                lowalch = %s,
                 limit_value = %s,
                 value = %s,
                 highalch = %s,
@@ -129,10 +129,10 @@ class postgres_warehouse(warehouse_interface):
                 (
                     data["examine"],
                     data["members"],
-                    data["low_alch"],
+                    data["lowalch"],
                     data["limit"],
                     data["value"],
-                    data["high_alch"],
+                    data["highalch"],
                     data["icon"],
                     data["name"],
                     data["high"],
